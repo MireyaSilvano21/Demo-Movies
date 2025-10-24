@@ -10,7 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import mx.edu.utez.movies.ui.components.buttons.PrimaryButton
+
 
 @Composable
 fun OlvidarContraScreen(navController: NavController) {
