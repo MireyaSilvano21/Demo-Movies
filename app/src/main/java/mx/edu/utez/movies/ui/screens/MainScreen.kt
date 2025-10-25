@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -22,15 +23,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.SemanticsActions.OnClick
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import mx.edu.utez.movies.data.model.NavItem
 import mx.edu.utez.movies.ui.components.PeliculaCard
 import mx.edu.utez.movies.ui.theme.MoviesTheme
+import mx.edu.utez.movies.viewmodel.LoginViewModel
+import mx.edu.utez.movies.viewmodel.MainViewModel
+import mx.edu.utez.movies.viewmodel.PeliculaViewModel
 
 @Composable
-fun MainScreen(modifier : Modifier = Modifier){
+fun MainScreen( viewModel: MainViewModel, navController: NavController ,modifier : Modifier = Modifier){
+
+    val viewModel: PeliculaViewModel = viewModel()
+
     val navItemList = listOf(
+        NavItem("Home", Icons.Default.Home),
         NavItem("Agregar", Icons.Default.Add),
-        NavItem("Editar", Icons.Default.Edit),
         NavItem("Eliminar", Icons.Default.Delete),
         NavItem("Salir", Icons.Default.ExitToApp),
     )
@@ -59,26 +69,37 @@ fun MainScreen(modifier : Modifier = Modifier){
 
         }
     ){
-        innerPadding ->
-        ContentScreen(modifier = Modifier.padding(innerPadding),selectedIndex )
+            innerPadding ->
+        // ¡LLAMADA CORREGIDA! Pasamos los valores dentro de los paréntesis.
+        ContentScreen(
+            modifier = Modifier.padding(paddingValues = innerPadding),
+            selectedIndex = selectedIndex,
+            viewModel = viewModel,
+            navController = navController
+        )
+    }
+}
+
+@Composable
+fun ContentScreen(
+    modifier: Modifier = Modifier,
+    selectedIndex: Int,
+    viewModel: PeliculaViewModel,
+    navController: NavController
+){
+    when(selectedIndex){
+        // Index 0: "Home"
+        0 -> PeliculaScreen(viewModel = viewModel, navController = navController)
+        3 -> navController.navigate("login") // ejemplo: salir
+
+        // Puedes agregar más pantallas aquí
+        // 1 -> AgregarScreen(viewModel = viewModel, navController = navController)
+        // 2 -> EliminarScreen(viewModel = viewModel, navController = navController)
+        // 3 -> SalirScreen(navController = navController)
     }
 }
 
 
 
-@Composable
-fun ContentScreen(modifier : Modifier = Modifier,selectedIndex: Int ){
-when(selectedIndex){
-
-}
-}
 
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewMainScreen() {
-    MoviesTheme {
-        MainScreen()
-    }
-
-}

@@ -14,7 +14,7 @@ import mx.edu.utez.movies.ui.theme.MoviesTheme
 @Composable
 fun PeliculaList(lista: List<Pelicula>, x: (Pelicula) -> Unit) {
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(40.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(items = lista, key = {it.id} ) {pelicula ->
             PeliculaCard(pelicula,x)

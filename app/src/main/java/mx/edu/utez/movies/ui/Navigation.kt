@@ -6,9 +6,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import mx.edu.utez.movies.ui.screens.LoginScreen
+import mx.edu.utez.movies.ui.screens.MainScreen
 import mx.edu.utez.movies.ui.screens.OlvidarContraScreen
+import mx.edu.utez.movies.ui.screens.PeliculaScreen
 import mx.edu.utez.movies.ui.screens.RegistroScreen
 import mx.edu.utez.movies.viewmodel.LoginViewModel
+import mx.edu.utez.movies.viewmodel.MainViewModel
+import mx.edu.utez.movies.viewmodel.PeliculaViewModel
 
 @Composable
 fun Navigation() {
@@ -21,5 +25,15 @@ fun Navigation() {
         }
         composable("forgot_password") { OlvidarContraScreen(navController) }
         composable("register") { RegistroScreen(navController) }
+
+        composable("pelis") {
+            val viewModel: PeliculaViewModel = viewModel() // instancia del ViewModel
+            PeliculaScreen(viewModel = viewModel, navController = navController)
+        }
+        composable("main") {
+            val viewModel: MainViewModel = viewModel() // instancia del ViewModel
+            MainScreen(viewModel = viewModel, navController = navController)
+        }
+
     }
 }

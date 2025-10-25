@@ -2,9 +2,12 @@ package mx.edu.utez.movies.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -15,17 +18,25 @@ import mx.edu.utez.movies.ui.components.texts.Title
 import mx.edu.utez.movies.viewmodel.PeliculaViewModel
 
 @Composable
-fun PeliculaScreen(viewModel: PeliculaViewModel, navController: NavController){
-    Column (
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.padding(90.dp)
+fun PeliculaScreen(viewModel: PeliculaViewModel, navController: NavController) {
+    val pelis by viewModel.peliculas.collectAsStateWithLifecycle() // usa el nombre correcto
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp), // espacio alrededor
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Title("Pasaportes registrados")
-        val pelis by viewModel.movies.collectAsStateWithLifecycle()
-        PeliculaList(pelis) { pelicula ->
-            //viewModel.clickPassport(pelicula)
-            //navController.navigate("stampas")
+        Title("Películas registradas")
+
+        if (pelis.isNotEmpty()) {
+            PeliculaList(pelis) { pelicula ->
+                viewModel.clickPelicula(pelicula)
+                //navController.navigate("stampas")
+            }
+        } else {
+            Label("No hay películas registradas")
         }
-        Label("No hay más Peliculas")
     }
 }
