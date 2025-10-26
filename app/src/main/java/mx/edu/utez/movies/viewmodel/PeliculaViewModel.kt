@@ -56,4 +56,28 @@ class PeliculaViewModel : ViewModel() {
         println("Has hecho click en: ${pelicula.titulo}")
         _selectedPelicula.value = pelicula
     }
+    fun eliminarPelicula() {
+        val pelicula = _selectedPelicula.value
+        if (pelicula != null) {
+            _peliculas.value = _peliculas.value.filter { it.id !=pelicula.id }
+            _selectedPelicula.value = null
+            println("Película eliminada: ${pelicula.titulo}")
+        }
+    }
+    fun actualizarPelicula(titulo: String, genero: String, year: Int, sinopsis: String) {
+        val pelicula = _selectedPelicula.value ?: return
+        val peliculasActualizadas = _peliculas.value.map {
+            if (it.id == pelicula.id) {
+                it.copy(
+                    titulo = titulo,
+                    genero = genero,
+                    year = year,
+                    sinopsis = sinopsis
+                )
+            } else it
+        }
+        _peliculas.value = peliculasActualizadas
+        _selectedPelicula.value = null
+        println("Película actualizada: $titulo")
+    }
 }
