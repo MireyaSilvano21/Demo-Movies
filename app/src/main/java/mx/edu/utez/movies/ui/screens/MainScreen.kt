@@ -90,6 +90,7 @@ fun ContentScreen(
     when(selectedIndex){
         // Index 0: "Home"
         0 -> PeliculaScreen(viewModel = viewModel, navController = navController)
+        1 -> navController.navigate("añadir")
         3 -> navController.navigate("login") // ejemplo: salir
 
         // Puedes agregar más pantallas aquí

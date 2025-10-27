@@ -1,7 +1,6 @@
 package mx.edu.utez.movies.ui.components.inputs
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
@@ -10,22 +9,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.unit.dp
 import mx.edu.utez.movies.viewmodel.AñadirViewModel
-import mx.edu.utez.movies.viewmodel.LoginViewModel
-
 
 @Composable
-fun SinopsisField(
+fun GeneroField(
     viewModel: AñadirViewModel,
-    label: String = "Usuario",
+    label: String = "Genero",
     onNext: (() -> Unit)? = null
 ) {
     val focusManager = LocalFocusManager.current
 
     OutlinedTextField(
-        value = viewModel.sinopsisi.value,
-        onValueChange = { viewModel.sinopsisi.value = it },
+        value = viewModel.genero.value,
+        onValueChange = { viewModel.genero.value = it },
         label = { Text(label) },
         modifier = Modifier.fillMaxWidth(),
         singleLine = true,

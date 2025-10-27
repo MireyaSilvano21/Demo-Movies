@@ -17,6 +17,7 @@ import mx.edu.utez.movies.R
 import mx.edu.utez.movies.ui.components.buttons.PrimaryButton
 import mx.edu.utez.movies.ui.components.images.CircularImage
 import mx.edu.utez.movies.ui.components.inputs.UserInputField
+import mx.edu.utez.movies.ui.components.inputs.UserRegistro
 import mx.edu.utez.movies.ui.components.texts.Title
 import mx.edu.utez.movies.viewmodel.RegistroViewModel
 
@@ -35,10 +36,10 @@ fun RegistroScreen(
         CircularImage(R.drawable.logo2)
         Title("Regístrate")
 
-        UserInputField(viewModel, label = "Ingrese correo electrónico")
-        UserInputField(viewModel, label = "Ingrese nombre de usuario")
-        UserInputField(viewModel, label = "Ingrese contraseña")
-        UserInputField(viewModel, label = "Confirme contraseña")
+        UserRegistro(viewModel, label = "Ingrese correo electrónico")
+        UserRegistro(viewModel, label = "Ingrese nombre de usuario")
+        UserRegistro(viewModel, label = "Ingrese contraseña")
+        UserRegistro(viewModel, label = "Confirme contraseña")
 
         PrimaryButton("Registrarse") {
             // Lógica del registro
