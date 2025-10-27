@@ -29,7 +29,7 @@ fun Navigation() {
             val viewModel: LoginViewModel = viewModel() // instancia del ViewModel
             LoginScreen(viewModel = viewModel, navController = navController)
         }
-        composable("forgot_password") { OlvidarContraScreen(navController) }
+        composable("forgot_password") { OlvidarContraScreen(navController)}
         composable("register") {
             val viewModel: RegistroViewModel = viewModel() // instancia del ViewModel
             RegistroScreen( viewModel,navController)
