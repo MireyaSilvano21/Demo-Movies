@@ -70,7 +70,7 @@ fun MainScreen( viewModel: MainViewModel, navController: NavController ,modifier
         }
     ){
             innerPadding ->
-        // ¡LLAMADA CORREGIDA! Pasamos los valores dentro de los paréntesis.
+
         ContentScreen(
             modifier = Modifier.padding(paddingValues = innerPadding),
             selectedIndex = selectedIndex,
@@ -91,12 +91,9 @@ fun ContentScreen(
         // Index 0: "Home"
         0 -> PeliculaScreen(viewModel = viewModel, navController = navController)
         1 -> navController.navigate("añadir")
-        3 -> navController.navigate("login") // ejemplo: salir
+        3 -> navController.navigate("login")
 
-        // Puedes agregar más pantallas aquí
-        // 1 -> AgregarScreen(viewModel = viewModel, navController = navController)
-        // 2 -> EliminarScreen(viewModel = viewModel, navController = navController)
-        // 3 -> SalirScreen(navController = navController)
+
     }
 }
 

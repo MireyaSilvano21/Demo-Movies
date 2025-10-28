@@ -33,7 +33,7 @@ fun PeliculaScreen(viewModel: PeliculaViewModel, navController: NavController) {
         if (pelis.isNotEmpty()) {
             PeliculaList(pelis) { pelicula ->
                 viewModel.clickPelicula(pelicula)
-                //navController.navigate("stampas")
+                navController.navigate("modificar")
             }
         } else {
             Label("No hay películas registradas")

@@ -16,7 +16,7 @@ import mx.edu.utez.movies.viewmodel.OlvidarContraViewModel
 import android.annotation.SuppressLint
 
 @Composable
-fun OlvidarContraScreen( // 👈 corregido
+fun OlvidarContraScreen(
     viewModel: OlvidarContraViewModel = viewModel(),
     navController: NavController
 ) {

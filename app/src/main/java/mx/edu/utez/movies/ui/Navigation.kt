@@ -17,6 +17,8 @@ import mx.edu.utez.movies.ui.screens.RegistroScreen
 import mx.edu.utez.movies.viewmodel.AñadirViewModel
 import mx.edu.utez.movies.viewmodel.LoginViewModel
 import mx.edu.utez.movies.viewmodel.MainViewModel
+import mx.edu.utez.movies.viewmodel.ModificarViewModel
+import mx.edu.utez.movies.viewmodel.OlvidarContraViewModel
 import mx.edu.utez.movies.viewmodel.PeliculaViewModel
 import mx.edu.utez.movies.viewmodel.RegistroViewModel
 
@@ -29,7 +31,9 @@ fun Navigation() {
             val viewModel: LoginViewModel = viewModel() // instancia del ViewModel
             LoginScreen(viewModel = viewModel, navController = navController)
         }
-        composable("forgot_password") { OlvidarContraScreen(navController)}
+        composable("forgot_password") {
+            val viewModel: OlvidarContraViewModel = viewModel() // instancia del ViewModel
+            OlvidarContraScreen( viewModel,navController)}
         composable("register") {
             val viewModel: RegistroViewModel = viewModel() // instancia del ViewModel
             RegistroScreen( viewModel,navController)
@@ -43,12 +47,12 @@ fun Navigation() {
             val viewModel: MainViewModel = viewModel() // instancia del ViewModel
             MainScreen(viewModel = viewModel, navController = navController)
         }
-        composable("eliminarPeliculas"){
+        composable("eliminar"){
             val viewModel: PeliculaViewModel = viewModel()
             EliminarPelicula(navController = navController, viewModel = viewModel)
         }
-        composable("modificarPelicula") {
-            val viewModel: PeliculaViewModel = viewModel()
+        composable("modificar") {
+            val viewModel: ModificarViewModel = viewModel()
             ModificarPelicula(navController = navController, viewModel = viewModel)
         }
         composable("añadir") {
