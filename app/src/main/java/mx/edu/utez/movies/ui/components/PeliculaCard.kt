@@ -153,6 +153,7 @@ fun PeliculaCard(
                 modifier = Modifier
                     .size(25.dp)
                     .clickable { x(p)
+                        
                     }
                     .padding(2.dp),
                 tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f)
