@@ -1,12 +1,32 @@
 package mx.edu.utez.movies.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import mx.edu.utez.movies.R
 import mx.edu.utez.movies.data.model.Pelicula
+import mx.edu.utez.movies.data.repository.PeliculaRepository
 
-class PeliculaViewModel : ViewModel() {
+class PeliculaViewModel(private val repository: PeliculaRepository) : ViewModel() {
+
+    val peliculasUIState: StateFlow<List<Pelicula>> = repository.allPeliculas
+        .stateIn(
+            scope = viewModelScope,
+            started = kotlinx.coroutines.flow.SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
+    fun addNewPelicula(id: Int, titulo: String, genero: String, year: Int, sinopsis: String, imagen: Int){
+        viewModelScope.launch {
+            val newPelicula = Pelicula(id = id, titulo = titulo, genero = genero, year = year, sinopsis = sinopsis, imagen = imagen)
+            repository.insertPelicula(newPelicula)
+        }
+    }
+
     private val _peliculas = MutableStateFlow<List<Pelicula>>(emptyList())
     val peliculas: StateFlow<List<Pelicula>> = _peliculas
 

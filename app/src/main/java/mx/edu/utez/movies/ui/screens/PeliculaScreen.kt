@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -20,6 +23,14 @@ import mx.edu.utez.movies.viewmodel.PeliculaViewModel
 @Composable
 fun PeliculaScreen(viewModel: PeliculaViewModel, navController: NavController) {
     val pelis by viewModel.peliculas.collectAsStateWithLifecycle() // usa el nombre correcto
+
+    var id by remember { mutableStateOf("") }
+    var titulo by remember { mutableStateOf("") }
+    var genero by remember { mutableStateOf("") }
+    var year by remember { mutableStateOf("") }
+    var sinopsis by remember { mutableStateOf("") }
+    var imagen by remember { mutableStateOf("") }
+
 
     Column(
         modifier = Modifier
