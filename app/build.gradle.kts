@@ -70,4 +70,8 @@ dependencies {
     // Soporte para Kotlin Coroutines (opcional pero recomendado)
     implementation("androidx.room:room-ktx:$room_version")
 
+    implementation("androidx.room:room-runtime:2.5.1")
+
+
+
 }

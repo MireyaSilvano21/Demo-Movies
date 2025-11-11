@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import mx.edu.utez.movies.ui.components.buttons.PrimaryButton
-import mx.edu.utez.movies.ui.components.inputs.ImagePicker
+import mx.edu.utez.movies.ui.components.images.ImagePicker
 import mx.edu.utez.movies.ui.components.inputs.NuevaSinopsisField
 import mx.edu.utez.movies.ui.components.inputs.NuevoGeneroField
 import mx.edu.utez.movies.ui.components.inputs.NuevoTituloField

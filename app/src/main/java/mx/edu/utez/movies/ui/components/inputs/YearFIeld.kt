@@ -20,8 +20,8 @@ fun YearField(
     val focusManager = LocalFocusManager.current
 
     OutlinedTextField(
-        value = viewModel.año.value,
-        onValueChange = { viewModel.año.value = it },
+        value = viewModel.year.value,
+        onValueChange = { viewModel.year.value = it },
         label = { Text(label) },
         modifier = Modifier.fillMaxWidth(),
         singleLine = true,

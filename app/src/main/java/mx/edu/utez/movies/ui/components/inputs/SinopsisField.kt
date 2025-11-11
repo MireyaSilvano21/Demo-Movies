@@ -24,8 +24,8 @@ fun SinopsisField(
     val focusManager = LocalFocusManager.current
 
     OutlinedTextField(
-        value = viewModel.sinopsisi.value,
-        onValueChange = { viewModel.sinopsisi.value = it },
+        value = viewModel.sinopsis.value,
+        onValueChange = { viewModel.sinopsis.value = it },
         label = { Text(label) },
         modifier = Modifier.fillMaxWidth(),
         singleLine = true,

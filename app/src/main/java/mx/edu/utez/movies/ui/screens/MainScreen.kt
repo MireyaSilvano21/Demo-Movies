@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.SemanticsActions.OnClick
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -32,11 +33,14 @@ import mx.edu.utez.movies.ui.theme.MoviesTheme
 import mx.edu.utez.movies.viewmodel.LoginViewModel
 import mx.edu.utez.movies.viewmodel.MainViewModel
 import mx.edu.utez.movies.viewmodel.PeliculaViewModel
+import mx.edu.utez.movies.viewmodel.PeliculaViewModelFactory
 
 @Composable
 fun MainScreen( viewModel: MainViewModel, navController: NavController ,modifier : Modifier = Modifier){
 
-    val viewModel: PeliculaViewModel = viewModel()
+
+    val context = LocalContext.current
+    val viewModel: PeliculaViewModel = viewModel(factory = PeliculaViewModelFactory(context))
 
     val navItemList = listOf(
         NavItem("Home", Icons.Default.Home),
@@ -72,7 +76,7 @@ fun MainScreen( viewModel: MainViewModel, navController: NavController ,modifier
             innerPadding ->
 
         ContentScreen(
-            modifier = Modifier.padding(paddingValues = innerPadding),
+            modifier = Modifier.padding( innerPadding),
             selectedIndex = selectedIndex,
             viewModel = viewModel,
             navController = navController
@@ -89,7 +93,7 @@ fun ContentScreen(
 ){
     when(selectedIndex){
         // Index 0: "Home"
-        0 -> PeliculaScreen(viewModel = viewModel, navController = navController)
+        0 -> PeliculaScreen(viewModel = viewModel, navController = navController, modifier = modifier)
         1 -> navController.navigate("añadir")
         3 -> navController.navigate("login")
 
