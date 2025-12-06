@@ -1,24 +1,13 @@
 package mx.edu.utez.movies.ui.screens
 
-import android.net.Uri
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,19 +17,20 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import mx.edu.utez.movies.data.model.Pelicula
 import mx.edu.utez.movies.ui.components.buttons.PrimaryButton
 import mx.edu.utez.movies.ui.components.images.ImagePicker
 import mx.edu.utez.movies.viewmodel.AñadirViewModel
 import mx.edu.utez.movies.viewmodel.AñadirViewModelFactory
-import mx.edu.utez.movies.viewmodel.PeliculaViewModel
 
 @Composable
-fun AñadirScreen(viewModel: AñadirViewModel, navController: NavController) {
+fun AñadirScreen(
+    navController: NavController
+) {
     val context = LocalContext.current
     val viewModel: AñadirViewModel = viewModel(factory = AñadirViewModelFactory(context))
 
     val scrollState = rememberScrollState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -49,17 +39,20 @@ fun AñadirScreen(viewModel: AñadirViewModel, navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically)
     ) {
-        // Selector de imagen
-        ImagePicker(onImageSelected = { uri -> viewModel.imagenUri.value = uri })
+
+        // Picker de imagen
+        ImagePicker(onImageSelected = { uri ->
+            viewModel.imagenUri.value = uri
+        })
 
         // Vista previa
-        viewModel.imagenUri.value?.let {
+        viewModel.imagenUri.value?.let { uri ->
             Image(
-                painter = rememberAsyncImagePainter(it),
-                contentDescription = "Preview",
+                painter = rememberAsyncImagePainter(uri),
+                contentDescription = "Vista previa",
                 modifier = Modifier
                     .size(200.dp)
-                    .clip(RoundedCornerShape(8.dp)),
+                    .clip(RoundedCornerShape(12.dp)),
                 contentScale = ContentScale.Crop
             )
         }
@@ -100,3 +93,4 @@ fun AñadirScreen(viewModel: AñadirViewModel, navController: NavController) {
         }
     }
 }
+

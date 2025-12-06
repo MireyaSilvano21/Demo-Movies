@@ -4,7 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import kotlin.jvm.java
+import mx.edu.utez.movies.data.model.Pelicula
+import mx.edu.utez.movies.data.model.PeliculaDAO
 
 @Database(entities = [Pelicula::class], version = 1, exportSchema = false)
 abstract class PeliculaDataBase : RoomDatabase() {

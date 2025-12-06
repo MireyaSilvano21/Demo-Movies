@@ -6,7 +6,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import mx.edu.utez.movies.data.model.Pelicula
 import mx.edu.utez.movies.ui.screens.AñadirScreen
 import mx.edu.utez.movies.ui.screens.EliminarPelicula
 import mx.edu.utez.movies.ui.screens.LoginScreen
@@ -19,7 +18,6 @@ import mx.edu.utez.movies.viewmodel.AñadirViewModel
 import mx.edu.utez.movies.viewmodel.AñadirViewModelFactory
 import mx.edu.utez.movies.viewmodel.LoginViewModel
 import mx.edu.utez.movies.viewmodel.MainViewModel
-import mx.edu.utez.movies.viewmodel.ModificarViewModel
 import mx.edu.utez.movies.viewmodel.OlvidarContraViewModel
 import mx.edu.utez.movies.viewmodel.PeliculaViewModel
 import mx.edu.utez.movies.viewmodel.PeliculaViewModelFactory
@@ -31,47 +29,51 @@ fun Navigation() {
     val context = LocalContext.current
 
     NavHost(navController = navController, startDestination = "login") {
+
         composable("login") {
-            val viewModel: LoginViewModel = viewModel() // instancia del ViewModel
+            val viewModel: LoginViewModel = viewModel()
             LoginScreen(viewModel = viewModel, navController = navController)
         }
+
         composable("forgot_password") {
-            val viewModel: OlvidarContraViewModel = viewModel() // instancia del ViewModel
-            OlvidarContraScreen( viewModel,navController)}
+            val viewModel: OlvidarContraViewModel = viewModel()
+            OlvidarContraScreen(viewModel = viewModel, navController = navController)
+        }
+
         composable("register") {
-            val viewModel: RegistroViewModel = viewModel() // instancia del ViewModel
-            RegistroScreen( viewModel,navController)
+            val viewModel: RegistroViewModel = viewModel()
+            RegistroScreen(viewModel = viewModel, navController = navController)
         }
-        // Pantalla principal de lista
+
+        // 🔥 Películas — ViewModel lo crea la pantalla
         composable("pelis") {
-            val context = LocalContext.current
-            val viewModel = viewModel<PeliculaViewModel>(factory = PeliculaViewModelFactory(context))
-            PeliculaScreen(viewModel = viewModel, navController = navController)
+            PeliculaScreen(navController = navController)
         }
-
-
 
         composable("main") {
             val viewModel: MainViewModel = viewModel()
             MainScreen(viewModel = viewModel, navController = navController)
         }
 
+        // 🔥 Eliminar usa mismo ViewModel de Película
         composable("eliminar") {
-            // ✅ También este (usa base de datos)
-            val viewModel: PeliculaViewModel = viewModel(factory = PeliculaViewModelFactory(context))
+            val viewModel: PeliculaViewModel =
+                viewModel(factory = PeliculaViewModelFactory(context))
             EliminarPelicula(navController = navController, viewModel = viewModel)
         }
 
+        // ❗ Si "modificar" usa Room USA este ViewModel, no ModificarViewModel
         composable("modificar") {
-            val viewModel: ModificarViewModel = viewModel()
+            val viewModel: PeliculaViewModel =
+                viewModel(factory = PeliculaViewModelFactory(context))
             ModificarPelicula(navController = navController, viewModel = viewModel)
         }
 
+        // 🔥 Añadir película
         composable("añadir") {
-            // ✅ Este necesita repository → usar Factory
-            val viewModel: AñadirViewModel = viewModel(factory = AñadirViewModelFactory(context))
+            val viewModel: AñadirViewModel =
+                viewModel(factory = AñadirViewModelFactory(context))
             AñadirScreen(viewModel = viewModel, navController = navController)
         }
     }
 }
-

@@ -16,11 +16,18 @@ import mx.edu.utez.movies.data.repository.PeliculaRepository
 
 class PeliculaViewModel(private val repository: PeliculaRepository) : ViewModel() {
 
-    // Live list of movies
+    // Lista observable de películas
     val peliculas: StateFlow<List<Pelicula>> = repository.allPeliculas
-        .map { list -> list.filter { it.titulo.isNotBlank() } }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+        .map { list ->
+            list.filter { it.titulo.isNotBlank() }
+        }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            emptyList()
+        )
 
+    // Película seleccionada
     private val _selectedPelicula = MutableStateFlow<Pelicula?>(null)
     val selectedPelicula: StateFlow<Pelicula?> = _selectedPelicula
 
@@ -29,8 +36,10 @@ class PeliculaViewModel(private val repository: PeliculaRepository) : ViewModel(
     }
 
     fun eliminarPelicula() {
-        _selectedPelicula.value?.let {
-            viewModelScope.launch { repository.eliminarPelicula(it) }
+        _selectedPelicula.value?.let { pelicula ->
+            viewModelScope.launch {
+                repository.eliminarPelicula(pelicula)
+            }
             _selectedPelicula.value = null
         }
     }
@@ -38,13 +47,19 @@ class PeliculaViewModel(private val repository: PeliculaRepository) : ViewModel(
     fun actualizarPelicula(pelicula: Pelicula) {
         viewModelScope.launch { repository.actualizarPelicula(pelicula) }
     }
+
+    fun insertarPelicula(pelicula: Pelicula) {
+        viewModelScope.launch { repository.insertPelicula(pelicula) }
+    }
 }
 
-// Factory
+// Factory para crear el ViewModel
 class PeliculaViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val dao = DatabaseProvider.getDatabase(context).peliculaDao()
         val repo = PeliculaRepository(dao)
         return PeliculaViewModel(repo) as T
     }
 }
+
