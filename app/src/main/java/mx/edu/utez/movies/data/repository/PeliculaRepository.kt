@@ -8,15 +8,12 @@ class PeliculaRepository(private val peliculaDao: PeliculaDAO) {
 
     val allPeliculas: Flow<List<Pelicula>> = peliculaDao.obtenerTodasLasPeliculas()
 
-    suspend fun insertPelicula(pelicula: Pelicula) {
+    suspend fun insertPelicula(pelicula: Pelicula) =
         peliculaDao.insertarPelicula(pelicula)
-    }
 
-    suspend fun eliminarPelicula(pelicula: Pelicula) {
+    suspend fun eliminarPelicula(pelicula: Pelicula) =
         peliculaDao.eliminarPelicula(pelicula)
-    }
 
-    suspend fun actualizarPelicula(pelicula: Pelicula) {
+    suspend fun actualizarPelicula(pelicula: Pelicula) =
         peliculaDao.actualizarPelicula(pelicula)
-    }
 }
